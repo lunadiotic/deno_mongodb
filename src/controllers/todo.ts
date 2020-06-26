@@ -16,5 +16,33 @@ const getAll = async({
     }
 }
 
+const insertOne = async({
+    response, request
+}: {
+    response: any;
+    request: any;
+}) => {
+    try {
+        const body = await request.body();
+        const data = body.value;
+        const id = await tasks.insertOne(data);
+        data._id = id;
 
-export { getAll };
+        response.status = 201;
+        response.body = {
+            success: true,
+            message: "task created!",
+            data: data
+        };
+    } catch (err) {
+        response.status = 400;
+        response.body = {
+            success: false,
+            message: err,
+            data: null
+        };
+    }
+}
+
+
+export { getAll, insertOne };
