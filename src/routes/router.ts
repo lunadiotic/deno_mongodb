@@ -1,5 +1,5 @@
 import { Router } from "https://deno.land/x/oak/mod.ts";
-import { getAll, insertOne } from "../controllers/todo.ts";
+import { getAll, insertOne, findOne } from "../controllers/todo.ts";
 
 const route = new Router();
 
@@ -15,6 +15,7 @@ route
         }
     })
     .get('/api/v1/tasks', getAll)
-    .post('/api/v1/tasks', insertOne);
+    .post('/api/v1/tasks', insertOne)
+    .get('/api/v1/tasks/:id', findOne);
 
 export default route;

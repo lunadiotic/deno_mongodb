@@ -44,5 +44,25 @@ const insertOne = async({
     }
 }
 
+const findOne = async({
+    response, params
+}: {
+    response: any;
+    params: any;
+}) => {
+    const data = await tasks.findOne({
+        _id: {
+            $oid: params.id
+        }
+    });
 
-export { getAll, insertOne };
+    response.status = 200;
+    response.body = {
+        success: true,
+        message: "get one task",
+        data: data
+    };    
+}
+
+
+export { getAll, insertOne, findOne };
