@@ -64,5 +64,40 @@ const findOne = async({
     };    
 }
 
+const updateOne = async({
+    response, params, request
+}: {
+    response: any;
+    params: any;
+    request: any;
+}) => {
+    const body = await request.body();
+    const data = body.value;
 
-export { getAll, insertOne, findOne };
+    await tasks.updateOne(
+        {
+            _id: {
+                $oid: params.id
+            }
+        },
+        {
+            $set: {
+                ...data
+            }
+        }
+    );
+
+    const result = await tasks.findOne({
+        _id: {$oid: params.id}
+    })
+
+    response.status = 200;
+    response.body = {
+        success: true,
+        message: "update one task",
+        data: result
+    };
+}
+
+
+export { getAll, insertOne, findOne, updateOne };
