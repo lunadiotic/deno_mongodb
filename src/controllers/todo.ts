@@ -99,5 +99,25 @@ const updateOne = async({
     };
 }
 
+const deleteOne = async({
+    response, params
+}: {
+    response: any,
+    params: any
+}) => {
+    await tasks.deleteOne({
+        _id: {
+            $oid: params.id
+        }
+    });
 
-export { getAll, insertOne, findOne, updateOne };
+    response.status = 200;
+    response.body = {
+        success: true,
+        message: "delete one task",
+        data: null
+    };
+}
+
+
+export { getAll, insertOne, findOne, updateOne, deleteOne };
